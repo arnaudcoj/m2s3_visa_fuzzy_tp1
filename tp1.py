@@ -39,7 +39,7 @@ def print_appartenance(t):
 def plot_basse_ou_moyenne():
     t = np.arange(0., 45., 5.)
 
-    plt.plot(t, op_max(basse, moyenne,t), label="Basse OU Moyenne")
+    plt.plot(t, np.maximum(basse(t), moyenne(t)), label="Basse OU Moyenne")
 
     plt.legend(loc='lower left', shadow=True)
     draw_plot("plot_basse_ou_moyenne.png")
@@ -49,26 +49,40 @@ def plot_basse_ou_moyenne():
 #==========
 
 #Question 1
-def op_min(f1, f2, t):
-    return np.minimum(f1(t), f2(t))
+def op_min(fs, t):
+    res = []
+    for f in fs:
+        if res == []:
+            res = f(t)
+        else :
+            newRes = np.minimum(res, f(t))
+            res = newRes
+    return res
 
 def plot_test_min():
     t = np.arange(0., 45., 5.)
-
-    plt.plot(t, op_min(basse, moyenne, t), label="Min(Basse, Moyenne)")
+    res = op_min([basse, moyenne, elevee], t)
+    plt.plot(t, res, label="Min(Basse, Moyenne, Élevée)")
 
     plt.legend(loc='lower left', shadow=True)
     draw_plot("plot_test_min.png")
 
 
 #Question 2
-def op_max(f1, f2, t):
-    return np.maximum(f1(t), f2(t))
+def op_max(fs, t):
+    res = []
+    for f in fs:
+        if res == []:
+            res = f(t)
+        else :
+            newRes = np.maximum(res, f(t))
+            res = newRes
+    return res
 
 def plot_test_max():
     t = np.arange(0., 45., 5.)
-
-    plt.plot(t, op_max(basse, elevee, t), label="Max(Basse, Elevee)")
+    res = op_max([basse, moyenne, elevee], t)
+    plt.plot(t, res, label="Max(Basse, Moyenne, Elevee)")
 
     plt.legend(loc='lower left', shadow=True)
     draw_plot("plot_test_max.png")
