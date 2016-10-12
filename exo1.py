@@ -10,6 +10,9 @@ def moyenne(t):
 def elevee(t):
     return np.clip((t - 20.) * 0.1, 0., 1.)
 
+
+print(basse(16.))
+
 t = np.arange(0., 45., 5.)
 
 plt.plot(t, basse(t), label="basse")
