@@ -10,19 +10,29 @@ def moyenne(t):
 def elevee(t):
     return np.clip((t - 20.) * 0.1, 0., 1.)
 
+def get_appartenance(t):
+    return [basse(t), moyenne(t), elevee(t)]
 
-print(basse(16.))
+def plot():
+    t = np.arange(0., 45., 5.)
 
-t = np.arange(0., 45., 5.)
+    plt.plot(t, basse(t), label="basse")
+    plt.plot(t, moyenne(t), label="moyenne")
+    plt.plot(t, elevee(t), label="elevee")
 
-plt.plot(t, basse(t), label="basse")
-plt.plot(t, moyenne(t), label="moyenne")
-plt.plot(t, elevee(t), label="elevee")
+    legend = plt.legend(loc='right', shadow=True)
+    plt.axis([0, 40, -0.1, 1.1])
+    plt.xlabel('Température (°C)')
+    plt.ylabel('discours (%)')
+    plt.title("Partition floue de l'univers du discours")
+    plt.grid(True)
+    plt.show()
 
-legend = plt.legend(loc='right', shadow=True)
-plt.axis([0, 40, -0.1, 1.1])
-plt.xlabel('Température (°C)')
-plt.ylabel('discours (%)')
-plt.title("Partition floue de l'univers du discours")
-plt.grid(True)
-plt.show()
+def print_appartenance(t):
+    l = get_appartenance(t)
+    print("Basse = ",l[0])
+    print("Moyenne = ",l[1])
+    print("Élevée = ",l[2])
+
+print_appartenance(16.)
+plot()
