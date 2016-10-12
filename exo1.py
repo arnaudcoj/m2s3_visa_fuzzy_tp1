@@ -14,7 +14,6 @@ def get_appartenance(t):
     return [basse(t), moyenne(t), elevee(t)]
 
 def draw_plot(save_file):
-    plt.legend(loc='center left', shadow=True)
     plt.axis([0, 40, -0.1, 1.1])
     plt.xlabel('Température (°C)')
     plt.ylabel('Discours (%)')
@@ -30,13 +29,15 @@ def plot_3():
     plt.plot(t, moyenne(t), label="Moyenne")
     plt.plot(t, elevee(t), label="Élevée")
 
+    plt.legend(loc='center left', shadow=True)
     draw_plot("plot_3.png")
 
 def plot_basse_ou_moyenne():
     t = np.arange(0., 45., 5.)
 
-    plt.plot(t, np.logical_or(basse(t), moyenne(t)), label="Basse OU Moyenne")
+    plt.plot(t, np.maximum(basse(t), moyenne(t)), label="Basse OU Moyenne")
 
+    plt.legend(loc='lower left', shadow=True)
     draw_plot("plot_basse_ou_moyenne.png")
 
 def print_appartenance(t):
