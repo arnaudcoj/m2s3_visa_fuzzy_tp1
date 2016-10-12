@@ -13,20 +13,31 @@ def elevee(t):
 def get_appartenance(t):
     return [basse(t), moyenne(t), elevee(t)]
 
-def plot():
-    t = np.arange(0., 45., 5.)
-
-    plt.plot(t, basse(t), label="basse")
-    plt.plot(t, moyenne(t), label="moyenne")
-    plt.plot(t, elevee(t), label="elevee")
-
-    legend = plt.legend(loc='right', shadow=True)
+def draw_plot():
+    legend = plt.legend(loc='center left', shadow=True)
     plt.axis([0, 40, -0.1, 1.1])
     plt.xlabel('Température (°C)')
-    plt.ylabel('discours (%)')
+    plt.ylabel('Discours (%)')
     plt.title("Partition floue de l'univers du discours")
     plt.grid(True)
     plt.show()
+
+
+def plot_3():
+    t = np.arange(0., 45., 5.)
+
+    plt.plot(t, basse(t), label="Basse")
+    plt.plot(t, moyenne(t), label="Moyenne")
+    plt.plot(t, elevee(t), label="Élevée")
+
+    draw_plot()
+
+def plot_basse_ou_moyenne():
+    t = np.arange(0., 45., 5.)
+
+    plt.plot(t, np.logical_or(basse(t), moyenne(t)), label="Basse OU Moyenne")
+
+    draw_plot()
 
 def print_appartenance(t):
     l = get_appartenance(t)
@@ -34,5 +45,4 @@ def print_appartenance(t):
     print("Moyenne = ",l[1])
     print("Élevée = ",l[2])
 
-print_appartenance(16.)
-plot()
+plot_basse_ou_moyenne()
