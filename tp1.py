@@ -23,7 +23,13 @@ def plot_3():
     plt.plot(t, elevee(t), label="Élevée")
 
     plt.legend(loc='center left', shadow=True)
-    draw_plot("plot_3.png")
+    plt.axis([0, 40, -0.1, 1.1])
+    plt.xlabel('Température (°C)')
+    plt.ylabel('Discours (%)')
+    plt.title("Partition floue de l'univers du discours")
+    plt.grid(True)
+    plt.savefig("plot_3.png")
+    plt.show()
 
 #Question 2
 def get_appartenance(t):
@@ -42,7 +48,13 @@ def plot_basse_ou_moyenne():
     plt.plot(t, np.maximum(basse(t), moyenne(t)), label="Basse OU Moyenne")
 
     plt.legend(loc='lower left', shadow=True)
-    draw_plot("plot_basse_ou_moyenne.png")
+    plt.axis([0, 40, -0.1, 1.1])
+    plt.xlabel('Température (°C)')
+    plt.ylabel('Discours (%)')
+    plt.title("Partition floue de l'univers du discours")
+    plt.grid(True)
+    plt.savefig("plot_basse_ou_moyenne.png")
+    plt.show()
 
 #==========
 #EXERCICE 2
@@ -65,7 +77,13 @@ def plot_test_min():
     plt.plot(t, res, label="Min(Basse, Moyenne, Élevée)")
 
     plt.legend(loc='lower left', shadow=True)
-    draw_plot("plot_test_min.png")
+    plt.axis([0, 40, -0.1, 1.1])
+    plt.xlabel('Température (°C)')
+    plt.ylabel('Discours (%)')
+    plt.title("Partition floue de l'univers du discours")
+    plt.grid(True)
+    plt.savefig("plot_test_min.png")
+    plt.show()
 
 
 #Question 2
@@ -85,19 +103,51 @@ def plot_test_max():
     plt.plot(t, res, label="Max(Basse, Moyenne, Elevee)")
 
     plt.legend(loc='lower left', shadow=True)
-    draw_plot("plot_test_max.png")
-
-#==========
-#UTILS
-#==========
-def draw_plot(save_file):
     plt.axis([0, 40, -0.1, 1.1])
     plt.xlabel('Température (°C)')
     plt.ylabel('Discours (%)')
     plt.title("Partition floue de l'univers du discours")
     plt.grid(True)
+    plt.savefig("plot_test_max.png")
     plt.show()
-    plt.savefig(save_file)
+
+#==========
+#EXERCICE 3
+#==========
+
+def chauffer_fort(t):
+    return np.clip((t - 8.) * 0.5, 0., 1.)
+
+def plot_chauffer_fort():
+    t = np.arange(0., 20., 1.)
+
+    plt.plot(t, chauffer_fort(t), label="Chauffer Fort")
+
+    plt.legend(loc='center left', shadow=True)
+    plt.axis([0, 15, -0.1, 1.1])
+    plt.xlabel('Puissance chauffe (kW)')
+    plt.ylabel('Discours (%)')
+    plt.title("Partition floue de l'univers du discours")
+    plt.grid(True)
+    plt.savefig("chauffer_fort.png")
+    plt.show()
+
+def mamdani(predicate, x0, conclusion, y):
+    return np.minimum(predicate(x0), conclusion(y))
+
+def plot_mamdani_chauffer_fort(temp):
+    t = np.arange(0., 20., 1.)
+
+    plt.plot(t, mamdani(basse, temp, chauffer_fort, t), label="Chauffer Fort (" + str(temp) + "°C)")
+
+    plt.legend(loc='center left', shadow=True)
+    plt.axis([0, 15, -0.1, 1.1])
+    plt.xlabel('Puissance chauffe (kW)')
+    plt.ylabel('Discours (%)')
+    plt.title("Partition floue de l'univers du discours")
+    plt.grid(True)
+    plt.savefig("chauffer_fort_" + str(temp) +".png")
+    plt.show()
 
 
 #==========
@@ -126,4 +176,8 @@ print("Question 2 : Combinaison par opérateur max")
 plot_test_max()
 
 #EXERCICE 3
-#TODO
+print("EXERCICE 3")
+print('Sous-ensemble flou "Chauffer fort"')
+plot_chauffer_fort()
+print('Sous-ensemble flou "Chauffer fort" pour 12°C')
+plot_mamdani_chauffer_fort(12.)
