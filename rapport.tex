@@ -6,6 +6,8 @@
 \usepackage[frenchb]{babel}
 \usepackage{amsmath}
 \usepackage{listings}
+\usepackage{textcomp}
+\usepackage{gensymb}
 
 % define our color
 \usepackage{xcolor}
@@ -61,9 +63,170 @@
 %	INTRODUCTION
 %----------------------------------------------------------------------------------------
 
-\section{Introduction}
+\section{Introduction -BROUILLON}
 
 \subsection{Motivation}
+Parfois la logique booléenne pas suffisante. En particulier en reconnaissance de formes, car des formes peuvent donner l'impression d'être fusionnées alors que ce n'est pas le cas, et inversement. Donc on peut pas dire c'est séparé ou, c'est la même chose.
+
+\subsection{Motivation}
+Pour ça on utilise la Fuzzy logique, pour faire des transitions. Par exemple : à cet endroit c'est plutôt dans la zone A et un peu moins dans la zone B, puis ici on est + dans la zone B TOUT ÇA QUOI.
+On va expliquer ça avec des exemples :
+
+\clearpage
+%----------------------------------------------------------------------------------------
+%	FONCTIONS D'APPARTENANCE
+%----------------------------------------------------------------------------------------
+
+\section{Fonctions d'appartenance -BROUILLON}:
+
+\begin{lstlisting}
+def basse(t):
+    return np.clip((-t + 20.) * 0.1, 0., 1.)
+
+def moyenne(t):
+    return 1. - np.clip(np.sign(t - 20) * (t - 20) * 0.1, 0., 1.)
+
+def elevee(t):
+    return np.clip((t - 20.) * 0.1, 0., 1.)
+\end{lstlisting}
+
+\subsection{Programme générant l'ensemble flou}
+\begin{figure}[h]
+\begin{center}
+	\includegraphics[width=400px]{plot_3.png}
+\end{center}
+\caption{Discours associé à la température en °C}
+\end{figure}
+
+\subsection{Degré d'appartenance}
+
+\subsubsection{Trace}
+\begin{lstlisting}
+def get_appartenance(t):
+    return [basse(t), moyenne(t), elevee(t)]
+
+def print_appartenance(t):
+    l = get_appartenance(t)
+    print("Basse = ",l[0])
+    print("Moyenne = ",l[1])
+    print("Elevee = ",l[2])
+\end{lstlisting}
+
+\subsubsection{Trace}
+\begin{lstlisting}[mathescape]
+Question 2 : Appartenance de 16${^\circ}$C
+Basse =  40.0 %
+Moyenne =  60.0 %
+Elevee =  0.0 %
+\end{lstlisting}
+
+\begin{figure}[h]
+\begin{center}
+	\includegraphics[width=400px]{plot_3_16dC.png}
+\end{center}
+\caption{Appartenance pour une température de 16°C}
+\end{figure}
+
+\subsection{Température basse ou moyenne}
+
+\begin{lstlisting}
+def basse_ou_moyenne(t):
+    return np.maximum(basse(t), moyenne(t))
+\end{lstlisting}
+
+\begin{figure}[h]
+\begin{center}
+	\includegraphics[width=400px]{plot_basse_ou_moyenne.png}
+\end{center}
+\caption{Température basse OU moyenne}
+\end{figure}
+
+
+\clearpage
+%----------------------------------------------------------------------------------------
+%	Opérateurs de la logique floue
+%----------------------------------------------------------------------------------------
+
+\section{Opérateurs de la logique floue -BROUILLON}:
+
+\subsection{Explication}
+
+\subsection{Opérateur min}
+\begin{lstlisting}
+def op_min(fs, t):
+    res = []
+    for f in fs:
+        if res == []:
+            res = f(t)
+        else :
+            newRes = np.minimum(res, f(t))
+            res = newRes
+    return res
+\end{lstlisting}
+
+\begin{figure}[h]
+\begin{center}
+	\includegraphics[width=400px]{plot_test_min.png}
+\end{center}
+\caption{min(Basse, Moyenne, Élevée)}
+\end{figure}
+
+\subsection{Opérateur max}
+\begin{lstlisting}
+def op_max(fs, t):
+    res = []
+    for f in fs:
+        if res == []:
+            res = f(t)
+        else :
+            newRes = np.maximum(res, f(t))
+            res = newRes
+    return res
+\end{lstlisting}
+
+\begin{figure}[h]
+\begin{center}
+	\includegraphics[width=400px]{plot_test_max.png}
+\end{center}
+\caption{max(Basse, Moyenne, Élevée)}
+\end{figure}
+
+
+\clearpage
+%----------------------------------------------------------------------------------------
+%	Implication floue
+%----------------------------------------------------------------------------------------
+
+\section{Implication floue -BROUILLON}:
+
+\subsection{Règle floue R}
+\begin{lstlisting}
+def chauffer_fort(t):
+    return np.clip((t - 8.) * 0.5, 0., 1.)
+\end{lstlisting}
+
+\begin{figure}[h]
+\begin{center}
+	\includegraphics[width=400px]{chauffer_fort.png}
+\end{center}
+\caption{Discours Chauffer fort en fonction de la Puissance de Chauffe}
+\end{figure}
+
+\subsection{Implication de Mamdani}
+
+\subsection{Ensemble flou de sortie}
+\begin{lstlisting}
+def mamdani(predicate, x0, conclusion, y):
+    return np.minimum(predicate(x0), conclusion(y))))
+\end{lstlisting}
+
+\begin{figure}[h]
+\begin{center}
+	\includegraphics[width=400px]{{chauffer_fort_12.0}.png}
+\end{center}
+\caption{Implication de Mamdani Température/Chauffe pour 12°C}
+\end{figure}
+
 
 \clearpage
 %----------------------------------------------------------------------------------------
@@ -72,6 +235,6 @@
 %	CONCLUSION
 %----------------------------------------------------------------------------------------
 
-\section{Conclusion}
+\section{Conclusion -BROUILLON}
 
 \end{document}

@@ -37,15 +37,18 @@ def get_appartenance(t):
 
 def print_appartenance(t):
     l = get_appartenance(t)
-    print("Basse = ",l[0])
-    print("Moyenne = ",l[1])
-    print("Élevée = ",l[2])
+    print("Basse = ", l[0] * 100., "%")
+    print("Moyenne = ", l[1] * 100., "%")
+    print("Elevee = ", l[2] * 100., "%")
 
 #Question 3
+def basse_ou_moyenne(t):
+    return np.maximum(basse(t), moyenne(t))
+
 def plot_basse_ou_moyenne():
     t = np.arange(0., 45., 5.)
 
-    plt.plot(t, np.maximum(basse(t), moyenne(t)), label="Basse OU Moyenne")
+    plt.plot(t, basse_ou_moyenne(t), label="Basse OU Moyenne")
 
     plt.legend(loc='lower left', shadow=True)
     plt.axis([0, 40, -0.1, 1.1])
@@ -76,7 +79,7 @@ def plot_test_min():
     res = op_min([basse, moyenne, elevee], t)
     plt.plot(t, res, label="Min(Basse, Moyenne, Élevée)")
 
-    plt.legend(loc='lower left', shadow=True)
+    plt.legend(loc='upper left', shadow=True)
     plt.axis([0, 40, -0.1, 1.1])
     plt.xlabel('Température (°C)')
     plt.ylabel('Discours (%)')
