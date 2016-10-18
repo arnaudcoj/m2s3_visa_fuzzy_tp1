@@ -127,7 +127,7 @@ Nous voyons que la température de 16°C appartient à 40\% au discours "Tempér
 
 Pour ce faire, nous avons besoin d'implémenter les fonctions et procédures suivantes :
 
-\subsubsection{Implémentation}
+\subsubsection{Implémentation Python}
 \begin{lstlisting}
 def get_appartenance(t):
     return [basse(t), moyenne(t), elevee(t)]
@@ -164,7 +164,7 @@ Dans ce cas, l'opérateur OU peut-être remplacé par une fonction renvoyant le 
 \caption{Température basse OU moyenne}
 \end{figure}
 
-\subsubsection{Implémentation}
+\subsubsection{Implémentation Python}
 
 \begin{lstlisting}
   def basse_ou_moyenne(t):
@@ -186,7 +186,7 @@ Nous allons ici implémenter les opérateurs min et max.
 \subsection{Opérateur min}
 
 \subsubsection{Explication}
-L'opérateur min renvoie le plus petit des $f_i$(x), pour chaque fonction $f_i$ correspondant aux sous-ensembles d'entrées.
+L'opérateur min renvoie le plus petit des $f_i(x)$, pour chaque fonction $f_i$ correspondant aux sous-ensembles d'entrées.
 
 \begin{figure}[h]
 \begin{center}
@@ -195,7 +195,7 @@ L'opérateur min renvoie le plus petit des $f_i$(x), pour chaque fonction $f_i$ 
 \caption{min(Basse, Moyenne, Élevée)}
 \end{figure}
 
-\subsubsection{Implémentation}
+\subsubsection{Implémentation Python}
 \begin{lstlisting}
 def op_min(fs, t):
     res = []
@@ -211,7 +211,7 @@ def op_min(fs, t):
 \subsection{Opérateur max}
 
 \subsubsection{Explication}
-L'opérateur min renvoie le plus grand des $f_i$(x), pour chaque fonction $f_i$ correspondant aux sous-ensembles d'entrées.
+L'opérateur min renvoie le plus grand des $f_i(x)$, pour chaque fonction $f_i$ correspondant à un des sous-ensembles d'entrées.
 
 \begin{figure}[h]
 \begin{center}
@@ -220,7 +220,7 @@ L'opérateur min renvoie le plus grand des $f_i$(x), pour chaque fonction $f_i$ 
 \caption{max(Basse, Moyenne, Élevée)}
 \end{figure}
 
-\subsubsection{Implémentation}
+\subsubsection{Implémentation Python}
 \begin{lstlisting}
 def op_max(fs, t):
     res = []
