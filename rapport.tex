@@ -66,10 +66,13 @@
 \section{Introduction}
 
 \subsection{Motivation}
-Dans le domaine de la reconnaissance de formes, la logique booléenne peut ne pas être suffisante. En effet, certains pixels sembleront appartenir à plusieurs zones d'une même image. Afin de définir à quelle zone appartient tel pixel, on utilise la logique floue.
+Dans le domaine de la reconnaissance de formes, la logique booléenne peut ne pas être suffisante. En effet, certains pixels sembleront appartenir à plusieurs zones d'une même image.
+
+Afin de définir à quelle zone appartient tel pixel, on utilise la logique floue.
 
 \subsection{Explication}
 Le principe de la logique floue est de non pas dire si un pixel appartient à une zone, mais de donner un pourcentage d'appartenance pour chaque zone.
+
 Nous allons expliquer cette démarche le long de ce rapport.
 
 \clearpage
@@ -110,7 +113,7 @@ Une fois ces fonctions définies, nous allons pouvoir dessiner les courbes ensem
 \subsection{Degré d'appartenance}
 
 \subsubsection{Explication}
-Maintenant que nous avons les fonctions modélisant les différents discours, nous pouvons définir le discours associé à une température mesurée.
+Maintenant que nous avons les fonctions modélisant les différents discours, nous pouvons définir le discours associé à une température mesurée.\\
 Ici nous prenons l'exemple de 16°C.
 
 \begin{figure}[h]
@@ -149,7 +152,10 @@ Elevee =  0.0 %
 \subsection{Température basse ou moyenne}
 
 \subsubsection{Explication}
-Nous pouvons utiliser des opérations logiques sur les ensembles de logique floue. Ci-dessous nous avons pour exemple l'ensemble flou "Température Basse OU Moyenne". Dans ce cas, l'opérateur OU peut-être remplacé par une fonction renvoyant le maximum (De même, ET sera remplacé par la fonction minimum).
+Nous pouvons utiliser des opérations logiques sur les ensembles de logique floue.
+
+Ci-dessous nous avons pour exemple l'ensemble flou "Température Basse OU Moyenne".\\
+Dans ce cas, l'opérateur OU peut-être remplacé par une fonction renvoyant le maximum (De même, ET sera remplacé par la fonction minimum).
 
 \begin{figure}[h]
 \begin{center}
@@ -174,8 +180,22 @@ Nous pouvons utiliser des opérations logiques sur les ensembles de logique flou
 \section{Opérateurs de la logique floue -BROUILLON}:
 
 \subsection{Explication}
+Nous pouvons également implémenter différents opérateurs afin d'obtenir le sous-ensemble flou résultant d'opérations effectuées sur d'autres sous-ensembles.\\
+Nous allons ici implémenter les opérateurs min et max.
 
 \subsection{Opérateur min}
+
+\subsubsection{Explication}
+L'opérateur min renvoie le plus petit des $f_i$(x), pour chaque fonction $f_i$ correspondant aux sous-ensembles d'entrées.
+
+\begin{figure}[h]
+\begin{center}
+	\includegraphics[width=400px]{plot_test_min.png}
+\end{center}
+\caption{min(Basse, Moyenne, Élevée)}
+\end{figure}
+
+\subsubsection{Implémentation}
 \begin{lstlisting}
 def op_min(fs, t):
     res = []
@@ -188,14 +208,19 @@ def op_min(fs, t):
     return res
 \end{lstlisting}
 
+\subsection{Opérateur max}
+
+\subsubsection{Explication}
+L'opérateur min renvoie le plus grand des $f_i$(x), pour chaque fonction $f_i$ correspondant aux sous-ensembles d'entrées.
+
 \begin{figure}[h]
 \begin{center}
-	\includegraphics[width=400px]{plot_test_min.png}
+	\includegraphics[width=400px]{plot_test_max.png}
 \end{center}
-\caption{min(Basse, Moyenne, Élevée)}
+\caption{max(Basse, Moyenne, Élevée)}
 \end{figure}
 
-\subsection{Opérateur max}
+\subsubsection{Implémentation}
 \begin{lstlisting}
 def op_max(fs, t):
     res = []
@@ -207,14 +232,6 @@ def op_max(fs, t):
             res = newRes
     return res
 \end{lstlisting}
-
-\begin{figure}[h]
-\begin{center}
-	\includegraphics[width=400px]{plot_test_max.png}
-\end{center}
-\caption{max(Basse, Moyenne, Élevée)}
-\end{figure}
-
 
 \clearpage
 %----------------------------------------------------------------------------------------
