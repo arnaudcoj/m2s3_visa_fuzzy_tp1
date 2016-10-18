@@ -71,9 +71,9 @@ Dans le domaine de la reconnaissance de formes, la logique booléenne peut ne pa
 Afin de définir à quelle zone appartient tel pixel, on utilise la logique floue.
 
 \subsection{Explication}
-Le principe de la logique floue est de non pas dire si un pixel appartient à une zone, mais de donner un pourcentage d'appartenance pour chaque zone.
+Le principe de la logique floue est de donner un pourcentage d'appartenance pour chaque zone, et non pas de dire simplement si un pixel appartient à une zone ou non.
 
-Nous allons expliquer cette démarche le long de ce rapport.
+Nous allons expliquer ce concept et la démarche à suivre le long de ce rapport.
 
 \clearpage
 %----------------------------------------------------------------------------------------
@@ -211,7 +211,7 @@ def op_min(fs, t):
 \subsection{Opérateur max}
 
 \subsubsection{Explication}
-L'opérateur min renvoie le plus grand des $f_i(x)$, pour chaque fonction $f_i$ correspondant à un des sous-ensembles d'entrées.
+L'opérateur max renvoie le plus grand des $f_i(x)$, pour chaque fonction $f_i$ correspondant à un des sous-ensembles d'entrées.
 
 \begin{figure}[h]
 \begin{center}
@@ -249,7 +249,7 @@ Ci-dessous nous voyons la représentation du sous-ensemble <<Chauffer Fort>>.
   \begin{center}
     \includegraphics[width=350px]{chauffer_fort.png}
   \end{center}
-  \caption{Discours Chauffer fort en fonction de la Puissance de Chauffe}
+  \caption{Discours <<Chauffer fort>> en fonction de la Puissance de Chauffe}
 \end{figure}
 
 Pour obtenir ce sous-ensemble flou, nous avons du implémenter la fonction suivante.
@@ -300,7 +300,8 @@ def mamdani(predicate, x0, conclusion, y):
 
 \section{Conclusion}
 Nous avons vu dans ce rapport comment appliquer les concepts de logique floue, ainsi que la méthode de Mamdani.\\
-Nous avons constaté l'intérêt de ce type de modélisation. En effet, nous pouvons représenter des transitions entre différents états ou discours, ce qui n'était pas possible avec la logique classique, ou booléenne.\\
+Nous avons constaté l'intérêt de ce type de modélisation. En effet, nous pouvons représenter des transitions entre différents états ou discours, ce qui n'était pas possible avec la logique classique, ou booléenne.
+
 Nous avons également pu voir une des applications pratiques de la logique floue : le changement de la puissance de chauffe en fonction de la température. Ce ne sont pas les seules applications, la logique floue est également utilisée en traitement d'image afin de reconnaître des zones et des éléments, dans les stabilisateurs des caméras, ou encore dans le métropolitain, afin de gérer l'accéleration de la rame, entre autres.
 
 \end{document}
