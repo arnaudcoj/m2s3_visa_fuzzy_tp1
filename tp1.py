@@ -139,7 +139,7 @@ def mamdani(predicate, x0, conclusion, y):
     return np.minimum(predicate(x0), conclusion(y))
 
 def plot_mamdani_chauffer_fort(temp):
-    t = np.arange(0., 20., 1.)
+    t = np.arange(0., 15.1, 0.1)
 
     plt.plot(t, mamdani(basse, temp, chauffer_fort, t), label="Chauffer Fort (" + str(temp) + "°C)")
 
@@ -158,25 +158,25 @@ def plot_mamdani_chauffer_fort(temp):
 #==========
 
 #EXERCICE 1
-print("EXERCICE 1")
-#Q1
-print("Question 1 : Plot de l'ensemble flou")
-plot_3()
-#Q2
-print("Question 2 : Appartenance de 16°C")
-print_appartenance(16.)
-#Q3
-print('Question 3 : Plot de l\'ensemble flou "Température Basse OU Moyenne"')
-plot_basse_ou_moyenne()
-
-#EXERCICE 2
-print("EXERCICE 2")
-#Q1
-print("Question 1 : Combinaison par opérateur min")
-plot_test_min()
-#Q2
-print("Question 2 : Combinaison par opérateur max")
-plot_test_max()
+#print("EXERCICE 1")
+##Q1
+#print("Question 1 : Plot de l'ensemble flou")
+#plot_3()
+##Q2
+#print("Question 2 : Appartenance de 16°C")
+#print_appartenance(16.)
+##Q3
+#print('Question 3 : Plot de l\'ensemble flou "Température Basse OU Moyenne"')
+#plot_basse_ou_moyenne()
+#
+##EXERCICE 2
+#print("EXERCICE 2")
+##Q1
+#print("Question 1 : Combinaison par opérateur min")
+#plot_test_min()
+##Q2
+#print("Question 2 : Combinaison par opérateur max")
+#plot_test_max()
 
 #EXERCICE 3
 print("EXERCICE 3")
