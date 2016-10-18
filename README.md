@@ -1,2 +1,9 @@
-# m2s3_visa_fuzzy_tp1
-VisA -- TP #1 : approche de la logique floue
+VisA − TP #1 : approche de la logique floue
+============================================
+
+### Pour lancer l'éxecution du programme :
+```
+$ python3 fuzzy_logic.py
+```
+
+> Nécessite Python3, MatplotLib et Numpy
