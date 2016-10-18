@@ -80,7 +80,7 @@ Nous allons expliquer cette démarche le long de ce rapport.
 %	FONCTIONS D'APPARTENANCE
 %----------------------------------------------------------------------------------------
 
-\section{Fonctions d'appartenance}:
+\section{Fonctions d'appartenance}
 
 \subsection{Présentation du problème}
 
@@ -89,7 +89,7 @@ Nous sommes en présence d'une partition floue correspondant aux sous-ensembles 
 
 \begin{figure}[h]
 \begin{center}
-	\includegraphics[width=400px]{plot_3.png}
+	\includegraphics[width=350px]{plot_3.png}
 \end{center}
 \caption{Discours associé à la température en °C}
 \end{figure}
@@ -108,8 +108,7 @@ def elevee(t):
     return np.clip((t - 20.) * 0.1, 0., 1.)
 \end{lstlisting}
 
-Une fois ces fonctions définies, nous allons pouvoir dessiner les courbes ensemble sur un intervalle donné et obtenir le graphique montré plus haut.
-
+\clearpage
 \subsection{Degré d'appartenance}
 
 \subsubsection{Explication}
@@ -118,7 +117,7 @@ Ici nous prenons l'exemple de 16°C.
 
 \begin{figure}[h]
 \begin{center}
-	\includegraphics[width=400px]{plot_3_16dC.png}
+	\includegraphics[width=350px]{plot_3_16dC.png}
 \end{center}
 \caption{Appartenance pour une température de 16°C}
 \end{figure}
@@ -159,7 +158,7 @@ Dans ce cas, l'opérateur OU peut-être remplacé par une fonction renvoyant le 
 
 \begin{figure}[h]
 \begin{center}
-	\includegraphics[width=400px]{plot_basse_ou_moyenne.png}
+	\includegraphics[width=350px]{plot_basse_ou_moyenne.png}
 \end{center}
 \caption{Température basse OU moyenne}
 \end{figure}
@@ -177,7 +176,7 @@ Dans ce cas, l'opérateur OU peut-être remplacé par une fonction renvoyant le 
 %	Opérateurs de la logique floue
 %----------------------------------------------------------------------------------------
 
-\section{Opérateurs de la logique floue -BROUILLON}:
+\section{Opérateurs de la logique floue}
 
 \subsection{Explication}
 Nous pouvons également implémenter différents opérateurs afin d'obtenir le sous-ensemble flou résultant d'opérations effectuées sur d'autres sous-ensembles.\\
@@ -190,7 +189,7 @@ L'opérateur min renvoie le plus petit des $f_i(x)$, pour chaque fonction $f_i$ 
 
 \begin{figure}[h]
 \begin{center}
-	\includegraphics[width=400px]{plot_test_min.png}
+	\includegraphics[width=300px]{plot_test_min.png}
 \end{center}
 \caption{min(Basse, Moyenne, Élevée)}
 \end{figure}
@@ -208,6 +207,7 @@ def op_min(fs, t):
     return res
 \end{lstlisting}
 
+\clearpage
 \subsection{Opérateur max}
 
 \subsubsection{Explication}
@@ -215,7 +215,7 @@ L'opérateur min renvoie le plus grand des $f_i(x)$, pour chaque fonction $f_i$ 
 
 \begin{figure}[h]
 \begin{center}
-	\includegraphics[width=400px]{plot_test_max.png}
+	\includegraphics[width=300px]{plot_test_max.png}
 \end{center}
 \caption{max(Basse, Moyenne, Élevée)}
 \end{figure}
@@ -237,36 +237,58 @@ def op_max(fs, t):
 %----------------------------------------------------------------------------------------
 %	Implication floue
 %----------------------------------------------------------------------------------------
-
-\section{Implication floue -BROUILLON}:
+\section{Implication floue}
 
 \subsection{Règle floue R}
-\begin{lstlisting}
-def chauffer_fort(t):
-    return np.clip((t - 8.) * 0.5, 0., 1.)
-\end{lstlisting}
+
+\subsubsection{Explication}
+Soit la règle floue R : Si <<Température Basse>> ALORS <<Chauffer Fort>>.\\
+Ci-dessous nous voyons la représentation du sous-ensemble <<Chauffer Fort>>.
 
 \begin{figure}[h]
-\begin{center}
-	\includegraphics[width=400px]{chauffer_fort.png}
-\end{center}
-\caption{Discours Chauffer fort en fonction de la Puissance de Chauffe}
+  \begin{center}
+    \includegraphics[width=350px]{chauffer_fort.png}
+  \end{center}
+  \caption{Discours Chauffer fort en fonction de la Puissance de Chauffe}
 \end{figure}
 
+Pour obtenir ce sous-ensemble flou, nous avons du implémenter la fonction suivante.
+
+\subsubsection{Implémentation Python}
+\begin{lstlisting}
+  def chauffer_fort(t):
+  return np.clip((t - 8.) * 0.5, 0., 1.)
+\end{lstlisting}
+
+\clearpage
 \subsection{Implication de Mamdani}
 
-\subsection{Ensemble flou de sortie}
-\begin{lstlisting}
-def mamdani(predicate, x0, conclusion, y):
-    return np.minimum(predicate(x0), conclusion(y))))
-\end{lstlisting}
+\subsubsection{Explication}
+Afin de calculer l'implication relative à la règle R citée plus haut, nous allons utiliser la méthode de Mamdani :
+\begin{equation}
+  \forall y \in U_y, \mu'_{conclusion}(y) = \min_{y \in U_y} (\mu_{predicate}(x_0), \mu_{conclusion}(y))
+\end{equation}
+
+Cette méthode ainsi que l'application de la formule nous permettent d'obtenir le sous-ensemble suivant, représentant la règle R pour une température de 12°C :
 
 \begin{figure}[h]
 \begin{center}
-	\includegraphics[width=400px]{{chauffer_fort_12.0}.png}
+	\includegraphics[width=350px]{{chauffer_fort_12.0}.png}
 \end{center}
 \caption{Implication de Mamdani Température/Chauffe pour 12°C}
 \end{figure}
+
+
+\subsubsection{Implémentation Python}
+\begin{lstlisting}
+def mamdani(predicate, x0, conclusion, y):
+    return np.minimum(predicate(x0), conclusion(y))))
+
+#[...]
+# Appel de la fonction mamdani :
+    mamdani(basse, temp, chauffer_fort, t)
+#[...]
+\end{lstlisting}
 
 
 \clearpage
@@ -276,6 +298,9 @@ def mamdani(predicate, x0, conclusion, y):
 %	CONCLUSION
 %----------------------------------------------------------------------------------------
 
-\section{Conclusion -BROUILLON}
+\section{Conclusion}
+Nous avons vu dans ce rapport comment appliquer les concepts de logique floue, ainsi que la méthode de Mamdani.\\
+Nous avons constaté l'intérêt de ce type de modélisation. En effet, nous pouvons représenter des transitions entre différents états ou discours, ce qui n'était pas possible avec la logique classique, ou booléenne.\\
+Nous avons également pu voir une des applications pratiques de la logique floue : le changement de la puissance de chauffe en fonction de la température. Ce ne sont pas les seules applications, la logique floue est également utilisée en traitement d'image afin de reconnaître des zones et des éléments, dans les stabilisateurs des caméras, ou encore dans le métropolitain, afin de gérer l'accéleration de la rame, entre autres.
 
 \end{document}
