@@ -63,22 +63,37 @@
 %	INTRODUCTION
 %----------------------------------------------------------------------------------------
 
-\section{Introduction -BROUILLON}
+\section{Introduction}
 
 \subsection{Motivation}
-Parfois la logique booléenne pas suffisante. En particulier en reconnaissance de formes, car des formes peuvent donner l'impression d'être fusionnées alors que ce n'est pas le cas, et inversement. Donc on peut pas dire c'est séparé ou, c'est la même chose.
+Dans le domaine de la reconnaissance de formes, la logique booléenne peut ne pas être suffisante. En effet, certains pixels sembleront appartenir à plusieurs zones d'une même image. Afin de définir à quelle zone appartient tel pixel, on utilise la logique floue.
 
-\subsection{Motivation}
-Pour ça on utilise la Fuzzy logique, pour faire des transitions. Par exemple : à cet endroit c'est plutôt dans la zone A et un peu moins dans la zone B, puis ici on est + dans la zone B TOUT ÇA QUOI.
-On va expliquer ça avec des exemples :
+\subsection{Explication}
+Le principe de la logique floue est de non pas dire si un pixel appartient à une zone, mais de donner un pourcentage d'appartenance pour chaque zone.
+Nous allons expliquer cette démarche le long de ce rapport.
 
 \clearpage
 %----------------------------------------------------------------------------------------
 %	FONCTIONS D'APPARTENANCE
 %----------------------------------------------------------------------------------------
 
-\section{Fonctions d'appartenance -BROUILLON}:
+\section{Fonctions d'appartenance}:
 
+\subsection{Présentation du problème}
+
+\subsubsection{Explication}
+Nous sommes en présence d'une partition floue correspondant aux sous-ensembles flous suivants : Température Basse, Moyenne, Haute, associés à une variable Température (en °C) (Figure ci-dessous).
+
+\begin{figure}[h]
+\begin{center}
+	\includegraphics[width=400px]{plot_3.png}
+\end{center}
+\caption{Discours associé à la température en °C}
+\end{figure}
+
+Pour obtenir de telles courbes, il nous a fallu définir les fonctions ci-dessous.
+
+\subsubsection{Implémentation Python}
 \begin{lstlisting}
 def basse(t):
     return np.clip((-t + 20.) * 0.1, 0., 1.)
@@ -90,17 +105,26 @@ def elevee(t):
     return np.clip((t - 20.) * 0.1, 0., 1.)
 \end{lstlisting}
 
-\subsection{Programme générant l'ensemble flou}
-\begin{figure}[h]
-\begin{center}
-	\includegraphics[width=400px]{plot_3.png}
-\end{center}
-\caption{Discours associé à la température en °C}
-\end{figure}
+Une fois ces fonctions définies, nous allons pouvoir dessiner les courbes ensemble sur un intervalle donné et obtenir le graphique montré plus haut.
 
 \subsection{Degré d'appartenance}
 
-\subsubsection{Trace}
+\subsubsection{Explication}
+Maintenant que nous avons les fonctions modélisant les différents discours, nous pouvons définir le discours associé à une température mesurée.
+Ici nous prenons l'exemple de 16°C.
+
+\begin{figure}[h]
+\begin{center}
+	\includegraphics[width=400px]{plot_3_16dC.png}
+\end{center}
+\caption{Appartenance pour une température de 16°C}
+\end{figure}
+
+Nous voyons que la température de 16°C appartient à 40\% au discours "Température Basse" et à 60\% au discours "Température Moyenne", ce qui laisse apparaître une certaine transition dans le discours, transition qui n'est pas possible avec la logique booléenne.
+
+Pour ce faire, nous avons besoin d'implémenter les fonctions et procédures suivantes :
+
+\subsubsection{Implémentation}
 \begin{lstlisting}
 def get_appartenance(t):
     return [basse(t), moyenne(t), elevee(t)]
@@ -113,6 +137,8 @@ def print_appartenance(t):
 \end{lstlisting}
 
 \subsubsection{Trace}
+Voici le résultat obtenu à l'éxecution :
+
 \begin{lstlisting}[mathescape]
 Question 2 : Appartenance de 16${^\circ}$C
 Basse =  40.0 %
@@ -120,19 +146,10 @@ Moyenne =  60.0 %
 Elevee =  0.0 %
 \end{lstlisting}
 
-\begin{figure}[h]
-\begin{center}
-	\includegraphics[width=400px]{plot_3_16dC.png}
-\end{center}
-\caption{Appartenance pour une température de 16°C}
-\end{figure}
-
 \subsection{Température basse ou moyenne}
 
-\begin{lstlisting}
-def basse_ou_moyenne(t):
-    return np.maximum(basse(t), moyenne(t))
-\end{lstlisting}
+\subsubsection{Explication}
+Nous pouvons utiliser des opérations logiques sur les ensembles de logique floue. Ci-dessous nous avons pour exemple l'ensemble flou "Température Basse OU Moyenne". Dans ce cas, l'opérateur OU peut-être remplacé par une fonction renvoyant le maximum (De même, ET sera remplacé par la fonction minimum).
 
 \begin{figure}[h]
 \begin{center}
@@ -140,6 +157,13 @@ def basse_ou_moyenne(t):
 \end{center}
 \caption{Température basse OU moyenne}
 \end{figure}
+
+\subsubsection{Implémentation}
+
+\begin{lstlisting}
+  def basse_ou_moyenne(t):
+  return np.maximum(basse(t), moyenne(t))
+\end{lstlisting}
 
 
 \clearpage
